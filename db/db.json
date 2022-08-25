@@ -1,0 +1,14 @@
+{
+    "notes": [
+    {
+        "title": "welcome to Note Taker!",
+        "text": "Here you can add and delte notes.",
+        "id": "0"
+    },
+    {
+        "title": "Deleteling notes",
+        "text":  "Here is where you can delete notes",
+        "id": "1"
+    }
+    ]
+}
