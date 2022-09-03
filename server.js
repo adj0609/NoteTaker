@@ -1,32 +1,36 @@
-const path = require('path');
-const PORT = process.env.PORT || 5500;
+
+const PORT = process.env.PORT || 5501;
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const htmlRoutes = ('./routes/htmlRoutes');
-const {deleteNoteEndPoint, createNoteEndPoint, getNotesEndPoint} = require('./Routes/apiRoutes/noteRoutes')
+const htmlRoutes = require('./routes/htmlRoutes');
+const apiRoutes = require('./routes/apiRoutes');
 
-app.use(express.urlencoded({ extended: true,
+//app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true
 }));
 
 app.use(express.json());
 app.use(express.static('public'));
-app.get('/api/notes', getNotesEndPoint);
-app.delete('/api/notes', deleteNoteEndPoint);
-app.post('/api/notes', createNoteEndPoint);
+app.use('/', apiRoutes);
+app.use('/', htmlRoutes);
+
 
 
 
 
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './notes.html'));
+    //const notes = fs.readFileSync("./db/db.json")
+    //res.render ("notes", JSON.parse(notes));
+    res.sendFile(path.join(__dirname, './public/notes.html'))
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './index.html'));
+   // res.render ("index");
+   res.sendFile(path.join(__dirname, './public/index.html'))
 })
 
 
 app.listen(PORT, () => {
-    console.log('API server now on port${PORT}!');
+    console.log(`API server now on port${PORT}!`);
 });
